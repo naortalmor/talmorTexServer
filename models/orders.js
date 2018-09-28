@@ -29,8 +29,16 @@ const orderSchema = new Schema({
     status: {
         type: String,
         required: true
+    },
+    phoneNumber: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
     }
 });
 
-var Orders = mongoose.model('Order', orderSchema);
+let Orders = mongoose.model('Order', orderSchema);
 module.exports = Orders;

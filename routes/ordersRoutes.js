@@ -11,26 +11,25 @@ const ord = [
     { id: 5, orderDate: today, customerName: 'Or', cost: 1400, height: 5, supplyDate: today, width: 10, status: "Matpera"}
 ];
 
-var mongoose = require('mongoose');
-const url = 'mongodb+srv://naor:naor1@cluster0-r43t1.mongodb.net/TalmorTex?retryWrites=true';
-const connect = mongoose.connect(url);
+let mongoose = require('mongoose');
+const uri = 'mongodb+srv://mongodb-stitch-talmortex-ovete:naor@cluster0-r43t1.mongodb.net/TalmorTex?retryWrites=true/orders';
+mongoose.connect(uri);
 
 ordersRoutes.route('/')
     .get((req, res, next) => {
-        console.log((Math.round(new Date() / 1000)) - 300);
-        var db = mongoose.connection;
-        db.once('open', () => {
-            console.log('Open');
-            Orders.find(function (err, orders) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    console.log(orders);
-                }
-            })
+        let db = mongoose.connection;
+        db.on('error', console.error.bind(console, 'Connection error'));
+        db.on('open', function(callback) {
+            console.log('Connected to database.');
         });
-        res.send(ord);
+
+        Orders.find((err, orders) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send(orders);
+            }
+        })
     });
 
 module.exports = ordersRoutes;
