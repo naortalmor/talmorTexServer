@@ -2,7 +2,7 @@
   "name": "talmortexserver",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index"
@@ -13,6 +13,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "mongoose": "^5.2.3",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "typescript": "^3.2.2"
   }
 }
