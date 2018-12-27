@@ -1,37 +1,27 @@
 import * as express from 'express';
 import * as MongoClient from 'mongodb';
+import { InitRoutes } from './routes/routers';
 
 class App {
-    public express;
-    public static orm;
+    public app;
 
     constructor() {
-        this.express = express();
-        this.initApp();
+        this.app = express();
+        InitRoutes.routes(this.app);
         this.initDBConnection();
-        console.log(App.orm);
-    }
-
-    initApp(): void {
-        const router = express.Router();
-        router.get('/', (req, res) => {
-            res.send('hello world');
-        });
-
-        this.express.use('/', router);
     }
 
     initDBConnection() {
-        const uri = 'mongodb+srv://mongodb-stitch-talmortex-ovete:naor@cluster0-r43t1.mongodb.net/TalmorTex?retryWrites=true/orders';
+        const uri = 'mongodb://mongodb-stitch-talmortex-ovete:naor@cluster0-shard-00-00-r43t1.mongodb.net:27017,cluster0-shard-00-01-r43t1.mongodb.net:27017,cluster0-shard-00-02-r43t1.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true'
         MongoClient.connect(uri, (err, db) => {
             if(err) {
                 console.log('There was an error with connection to DB');
             } else {
-                App.orm = db;
+                this.app.locals.db = db.db('TalmorTex').collection('orders');
                 console.log('connected to DB')
             }
         });
     }
 }
 
-export default new App().express;
+export default new App().app;

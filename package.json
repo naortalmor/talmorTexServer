@@ -5,15 +5,16 @@
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && nodemon index",
+    "start": "tsc && node ./build/index.js",
     "buid": "tsc"
   },
   "author": "Naor Talmor",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.4",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "mongodb": "^3.1.10",
+    "node": "^11.5.0",
     "nodemon": "^1.18.4",
     "typescript": "^3.2.2"
   }
