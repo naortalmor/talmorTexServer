@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as MongoClient from 'mongodb';
+import * as cors from 'cors'
 import { InitRoutes } from './routes/routers';
 
 class App {
@@ -7,8 +8,12 @@ class App {
 
     constructor() {
         this.app = express();
-        InitRoutes.routes(this.app);
+        this.initApp();
         this.initDBConnection();
+    }
+
+    initApp() {
+        InitRoutes.routes(this.app);
     }
 
     initDBConnection() {

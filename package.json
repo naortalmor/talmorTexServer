@@ -11,7 +11,8 @@
   "author": "Naor Talmor",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.4",
+    "@types/cors": "^2.8.4",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongodb": "^3.1.10",
     "node": "^11.5.0",
