@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as MongoClient from 'mongodb';
+import * as env from 'dotenv';
 
 export class AbstractServer {
     static orm;
@@ -10,7 +11,8 @@ export class AbstractServer {
         app.use(bodyParser.json());
         AbstractServer.initDbConnection();
         AbstractServer.initCors(app);
-        const port = process.env.PORT || 1111;
+        env.config();
+        const port = process.env.PORT || 1112;
         app.listen(port, (err) => {
             if(err) {
                 console.log(err)
@@ -22,7 +24,9 @@ export class AbstractServer {
     }
 
     private static initDbConnection():void {
-        const uri = 'mongodb://mongodb-stitch-talmortex-ovete:naor@cluster0-shard-00-00-r43t1.mongodb.net:27017,cluster0-shard-00-01-r43t1.mongodb.net:27017,cluster0-shard-00-02-r43t1.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true'
+        env.config();
+        const uri = 
+        `mongodb://${process.env.DB_USER_NAME}:${process.env.DB_PASSWORD}@cluster0-shard-00-00-r43t1.mongodb.net:27017,cluster0-shard-00-01-r43t1.mongodb.net:27017,cluster0-shard-00-02-r43t1.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true`
         MongoClient.connect(uri, (err, db) => {
             if(err) {
                 console.log('There was an error with connection to DB');
